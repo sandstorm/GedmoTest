@@ -6,6 +6,7 @@ namespace Sandstorm\GedmoTest\Domain\Model;
  *                                                                        *
  *                                                                        */
 
+use Sandstorm\GedmoTranslatableConnector\TranslatableTrait;
 use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -15,13 +16,13 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @Flow\Entity
  */
 class Event {
+	use TranslatableTrait;
 
 	/**
 	 * @Gedmo\Translatable
 	 * @var string
 	 */
 	protected $name;
-
 
 	/**
 	 * @return string
@@ -37,5 +38,4 @@ class Event {
 	public function setName($name) {
 		$this->name = $name;
 	}
-
 }

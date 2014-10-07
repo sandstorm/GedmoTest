@@ -6,11 +6,7 @@ namespace Sandstorm\GedmoTest\Controller;
  *                                                                        *
  *                                                                        */
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Gedmo\Translatable\Entity\Repository\TranslationRepository;
-use Gedmo\Translatable\TranslatableListener;
 use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Cache\CacheManager;
 use TYPO3\Flow\Mvc\Controller\ActionController;
 use Sandstorm\GedmoTest\Domain\Model\Event;
 
@@ -23,31 +19,9 @@ class EventController extends ActionController {
 	protected $eventRepository;
 
 	/**
-	 * @Flow\Inject
-	 * @var CacheManager
-	 */
-	protected $cacheManager;
-
-
-	/**
-	 * Doctrine's Entity Manager. Note that "ObjectManager" is the name of the related interface.
-	 *
-	 * @Flow\Inject
-	 * @var ObjectManager
-	 */
-	protected $entityManager;
-
-	/**
-	 * @Flow\Inject
-	 * @var TranslatableListener
-	 */
-	protected $translatableListener;
-
-	/**
 	 * @return void
 	 */
 	public function indexAction() {
-		$this->translatableListener->setTranslatableLocale('de');
 		$this->view->assign('events', $this->eventRepository->findAll());
 	}
 
@@ -88,12 +62,6 @@ class EventController extends ActionController {
 	 * @return void
 	 */
 	public function updateAction(Event $event) {
-
-
-		/* @var $repository TranslationRepository */
-		$repository = $this->entityManager->getRepository('Gedmo\\Translatable\\Entity\\Translation');
-		$repository->translate($event, 'name', 'de', 'Deutscher Titel');
-
 		$this->eventRepository->update($event);
 		$this->addFlashMessage('Updated the event.');
 		$this->redirect('index');
