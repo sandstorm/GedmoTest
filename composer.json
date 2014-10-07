@@ -4,7 +4,7 @@
     "description": "Add description here",
     "require": {
         "typo3/flow": "*",
-        "gedmo/doctrine-extensions": "2.3.*"
+        "sandstorm/gedmotranslatableconnector": "@dev"
     },
     "autoload": {
         "psr-0": {
