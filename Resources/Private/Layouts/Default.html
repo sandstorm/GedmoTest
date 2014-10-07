@@ -8,6 +8,17 @@
 	<body>
 		<f:flashMessages class="flashmessages" />
 
+		<p>
+			Current language: {currentLanguage}
+		</p>
+		<p>
+			Switch language:
+			<f:link.action action="chooseLanguage" arguments="{language: ''}">[default]</f:link.action>
+			<f:link.action action="chooseLanguage" arguments="{language: 'de'}">de</f:link.action>
+			<f:link.action action="chooseLanguage" arguments="{language: 'en'}">en</f:link.action>
+		</p>
+
+
 		<h1><f:render section="Title" /></h1>
 		<f:render section="Content" />
 	</body>

@@ -6,6 +6,8 @@ namespace Sandstorm\GedmoTest\Controller;
  *                                                                        *
  *                                                                        */
 
+use Gedmo\Translatable\TranslatableListener;
+use Sandstorm\GedmoTest\Domain\Model\ChosenLanguage;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Mvc\Controller\ActionController;
 use Sandstorm\GedmoTest\Domain\Model\Event;
@@ -19,10 +21,41 @@ class EventController extends ActionController {
 	protected $eventRepository;
 
 	/**
+	 * @Flow\Inject
+	 * @var ChosenLanguage
+	 */
+	protected $chosenLanguage;
+
+	/**
+	 * @Flow\Inject
+	 * @var TranslatableListener
+	 */
+	protected $translatableListener;
+
+	protected function initializeView(\TYPO3\Flow\Mvc\View\ViewInterface $view) {
+		$view->assign('currentLanguage', $this->chosenLanguage->getLanguage());
+	}
+
+	public function loadLanguage() {
+		if ($this->chosenLanguage->getLanguage() !== '') {
+			$this->translatableListener->setTranslatableLocale($this->chosenLanguage->getLanguage());
+		}
+	}
+
+	/**
 	 * @return void
 	 */
 	public function indexAction() {
+		$this->loadLanguage();
 		$this->view->assign('events', $this->eventRepository->findAll());
+	}
+
+	/**
+	 * @param string $language
+	 */
+	public function chooseLanguageAction($language) {
+		$this->chosenLanguage->setLanguage($language);
+		$this->redirect('index');
 	}
 
 	/**
@@ -30,6 +63,7 @@ class EventController extends ActionController {
 	 * @return void
 	 */
 	public function showAction(Event $event) {
+		$this->loadLanguage();
 		$this->view->assign('event', $event);
 	}
 
