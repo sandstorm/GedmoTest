@@ -16,7 +16,7 @@ class ChosenLanguage {
 	/**
 	 * @var string
 	 */
-	protected $language;
+	protected $language = '';
 
 	/**
 	 * @param $language
