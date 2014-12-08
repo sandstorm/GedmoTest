@@ -63,7 +63,7 @@ class EventController extends ActionController {
 	 * @return void
 	 */
 	public function showAction(Event $event) {
-		$this->loadLanguage();
+		$event->reloadInLocale($this->chosenLanguage->getLanguage());
 		$this->view->assign('event', $event);
 	}
 
