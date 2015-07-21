@@ -3,13 +3,23 @@
 <f:section name="Title">Edit event "{event.name}"</f:section>
 
 <f:section name="Content">
-	<f:form action="update" object="{event}" objectName="event">
+	<f:form action="update" object="{event}" objectName="event" enctype="multipart/form-data">
 		<ol>
 			<li>
 				<label for="name">Name</label>
 				Name (default): <f:form.textfield property="name" /><br />
 				Name (de): <f:form.textfield property="translations.de.name" /><br />
 				Name (en): <f:form.textfield property="translations.en.name" /><br />
+			</li>
+
+			<li>
+				Image Title: <f:form.textfield property="asset.title" /><br />
+				Image File: <f:form.upload property="asset.resource" />
+			</li>
+
+			<li>
+				Image Title (en): <f:form.textfield property="translations.en.asset.title" /><br />
+				Image File (en): <f:form.upload property="translations.en.asset.resource" />
 			</li>
 		
 			<li>

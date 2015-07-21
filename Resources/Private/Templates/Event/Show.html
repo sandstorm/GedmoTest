@@ -9,5 +9,10 @@
 			<td>{event.name}</td>
 		</tr>
 	</table>
+
+	<f:if condition="{event.asset}">
+		<typo3.media:image image="{event.asset}" alt="ALT" />
+	</f:if>
+
 	<f:link.action action="index">Back</f:link.action>
 </f:section>
